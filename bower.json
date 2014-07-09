@@ -1,0 +1,13 @@
+{
+  "name": "select-transformer",
+  "version": "0.0.1",
+  "description": "Transforms HTML select elements into groups of radio buttons or checkboxes",
+  "authors": [
+    "Simon Wade"
+  ],
+  "keywords": [
+    "dom"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/aexmachina/select-transformer"
+}

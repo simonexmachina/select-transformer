@@ -1,0 +1,10 @@
+.st-container {
+  border: 1px;
+  margin-bottom: 1rem;
+}
+label.st-option {
+  display: block;
+}
+.st-group .st-option {
+  margin-left: 1rem;
+}

@@ -1,0 +1,28 @@
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="../globals/main.js"></script>
+  <link rel="stylesheet" href="default.css">
+</head>
+<body>
+  <select name="foo">
+    <option>Foo</option>
+    <option value="bar">Bar</option>
+    <optgroup label="Batman">
+      <option value="robin">Robin</option>
+    </optgroup>
+  </select>
+  <select name="bar" multiple>
+    <option>Foo</option>
+    <option value="bar">Bar</option>
+    <optgroup label="Batman">
+      <option value="robin">Robin</option>
+    </optgroup>
+  </select>
+  <script>
+    $('select').each(function() {
+      SelectTransformer.default.init(this);
+    });
+  </script>
+</body>
+</html>
