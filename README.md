@@ -13,7 +13,11 @@ import SelectTransformer from 'select-transformer'; // see Module Formats below
 new SelectTransformer(document.querySelector('select#my-select'));
 ```
 
-The module checks the `select.multiple` property to decide whether to use radio buttons or checkboxes.
+The `select.multiple` property is used to decide whether to use radio buttons or checkboxes.
+
+`<optgroup>` elements are wrapped in an `<div class="st-group">` element that you can use for styling.
+
+There is some very basic styling in `dist/assets/default.css` that you can use as a base.
 
 ### jQuery
 
