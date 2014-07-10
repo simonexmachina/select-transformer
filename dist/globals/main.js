@@ -1,5 +1,6 @@
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.SelectTransformer=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
+/* global jQuery */
 var dom = jQuery;
 
 var SelectTransformer = function(select, opts) {
@@ -28,7 +29,7 @@ var SelectTransformer = function(select, opts) {
 
 SelectTransformer.prototype.build = function() {
   this.el = document.createElement('div');
-  this.el.className = 'st-container';
+  this.el.className = 'st-container st-group';
 };
 SelectTransformer.prototype.listen = function() {
   dom(this.select).on('change', this.update.bind(this));
@@ -48,6 +49,7 @@ SelectTransformer.prototype.inputChanged = function(ev) {
       options[i].selected = input.checked;
     }
   }
+  dom(this.select).trigger('change');
 };
 SelectTransformer.init = function(el) {
   return new SelectTransformer(el);
@@ -65,28 +67,31 @@ var STOptionSet = function(transformer) {
 STOptionSet.prototype.update = function(parent) {
   var newInputs = [],
       newGroups = [];
-  dom(parent.children).each(function(i, el) {
-    var child;
-    if (el.tagName == 'OPTION') {
-      child = this.inputFor(el);
-      if (!child) {
-        child = new STInput(el, this.transformer);
-        this.inputs.push(child);
+  dom(parent.children)
+    .filter('option, optgroup')
+    .each(function(i, el) {
+      var child;
+      if (el.tagName == 'OPTION') {
+        child = this.inputFor(el);
+        if (!child) {
+          child = new STInput(el, this.transformer);
+          this.inputs.push(child);
+        }
+        child.update();
+        newInputs.push(child);
       }
-      child.update();
-      newInputs.push(child);
-    }
-    else {
-      child = this.groupFor(el);
-      if (!child) {
-        child = new STOptGroup(el, this.transformer);
-        this.groups.push(child);
+      else {
+        child = this.groupFor(el);
+        if (!child) {
+          child = new STOptGroup(el, this.transformer);
+          this.groups.push(child);
+        }
+        child.update(el);
+        newGroups.push(child);
       }
-      child.update(el);
-      newGroups.push(child);
-    }
-    this.el.appendChild(child.el);
-  }.bind(this));
+      this.el.appendChild(child.el);
+    }.bind(this)
+  );
   // handle removing inputs or groups that have been removed
   prune.call(this, 'inputs', newInputs);
   prune.call(this, 'groups', newGroups);
@@ -145,7 +150,7 @@ var STInput = function(optionEl, transformer) {
   var el, input, label;
 
   el = document.createElement('label');
-  el.className = 'st-option';
+  el.className = 'st-option' + (optionEl.value ? '' : ' st-no-value');
 
   input = document.createElement('input');
   input.name = transformer.select.name;

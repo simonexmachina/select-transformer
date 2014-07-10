@@ -2,6 +2,7 @@ define("select-transformer",
   ["exports"],
   function(__exports__) {
     "use strict";
+    /* global jQuery */
     var dom = jQuery;
 
     var SelectTransformer = function(select, opts) {
@@ -30,7 +31,7 @@ define("select-transformer",
 
     SelectTransformer.prototype.build = function() {
       this.el = document.createElement('div');
-      this.el.className = 'st-container';
+      this.el.className = 'st-container st-group';
     };
     SelectTransformer.prototype.listen = function() {
       dom(this.select).on('change', this.update.bind(this));
@@ -50,6 +51,7 @@ define("select-transformer",
           options[i].selected = input.checked;
         }
       }
+      dom(this.select).trigger('change');
     };
     SelectTransformer.init = function(el) {
       return new SelectTransformer(el);
@@ -67,28 +69,31 @@ define("select-transformer",
     STOptionSet.prototype.update = function(parent) {
       var newInputs = [],
           newGroups = [];
-      dom(parent.children).each(function(i, el) {
-        var child;
-        if (el.tagName == 'OPTION') {
-          child = this.inputFor(el);
-          if (!child) {
-            child = new STInput(el, this.transformer);
-            this.inputs.push(child);
+      dom(parent.children)
+        .filter('option, optgroup')
+        .each(function(i, el) {
+          var child;
+          if (el.tagName == 'OPTION') {
+            child = this.inputFor(el);
+            if (!child) {
+              child = new STInput(el, this.transformer);
+              this.inputs.push(child);
+            }
+            child.update();
+            newInputs.push(child);
           }
-          child.update();
-          newInputs.push(child);
-        }
-        else {
-          child = this.groupFor(el);
-          if (!child) {
-            child = new STOptGroup(el, this.transformer);
-            this.groups.push(child);
+          else {
+            child = this.groupFor(el);
+            if (!child) {
+              child = new STOptGroup(el, this.transformer);
+              this.groups.push(child);
+            }
+            child.update(el);
+            newGroups.push(child);
           }
-          child.update(el);
-          newGroups.push(child);
-        }
-        this.el.appendChild(child.el);
-      }.bind(this));
+          this.el.appendChild(child.el);
+        }.bind(this)
+      );
       // handle removing inputs or groups that have been removed
       prune.call(this, 'inputs', newInputs);
       prune.call(this, 'groups', newGroups);
@@ -147,7 +152,7 @@ define("select-transformer",
       var el, input, label;
 
       el = document.createElement('label');
-      el.className = 'st-option';
+      el.className = 'st-option' + (optionEl.value ? '' : ' st-no-value');
 
       input = document.createElement('input');
       input.name = transformer.select.name;
