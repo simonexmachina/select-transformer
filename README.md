@@ -4,7 +4,7 @@ Transforms HTML select elements into groups of radio buttons or checkboxes.
 
 ### Rationale
 
-The humble `<select>` element provides a good interface for selecting one or more named options, but we often want to display these options using checkboxes or radio buttons. Rather than having separate implementation for each of these options, this module allows you to just use `<select>`s and it will transform them into groups of inputs and handle the two-way binding to keep them in sync.
+The humble `<select>` element provides a good interface for selecting one or more named options, but we often want to display these options using checkboxes or radio buttons. Rather than having separate implementations for each of these, this module allows you to just use `<select>`s and it will transform them into groups of inputs and handle the two-way binding to keep them in sync.
 
 ## Usage
 

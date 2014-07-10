@@ -1,6 +1,5 @@
 /* jshint node:true */
 var makeModules = require('broccoli-dist-es6-module');
-var exportTree = require('broccoli-export-tree');
 var pickFiles = require('broccoli-static-compiler');
 var mergeTrees = require('broccoli-merge-trees');
 
@@ -9,11 +8,8 @@ var modules = makeModules('lib/', {
   packageName: 'select-transformer',
   main: 'select-transformer'
 });
-var dist = mergeTrees([modules, pickFiles('assets', {
+
+module.exports = mergeTrees([modules, pickFiles('assets', {
   srcDir: '.',
   destDir: 'assets'
 })]);
-
-module.exports = mergeTrees([exportTree(dist, {
-  destDir: 'dist'
-}), dist]);
