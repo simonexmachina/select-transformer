@@ -9,5 +9,13 @@
     "dom"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/aexmachina/select-transformer"
+  "homepage": "https://github.com/aexmachina/select-transformer",
+  "main": "dist/globals/main.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
