@@ -1,6 +1,6 @@
 {
   "name": "select-transformer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Transforms HTML select elements into groups of radio buttons or checkboxes",
   "authors": [
     "Simon Wade"
