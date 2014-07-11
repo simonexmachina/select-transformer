@@ -15,6 +15,11 @@
     "test": "rm -rf dist && broccoli build dist && karma start --browsers PhantomJS --single-run",
     "build": "rm -rf dist && broccoli build dist"
   },
+  "files": [
+    "assets",
+    "dist",
+    "lib"
+  ],
   "devDependencies": {
     "bower": "^1.2.8",
     "broccoli": "^0.12.0",

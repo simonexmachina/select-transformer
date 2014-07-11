@@ -8,7 +8,7 @@ The humble `<select>` element provides a good interface for selecting one or mor
 
 ## Usage
 
-```
+```javascript
 import SelectTransformer from 'select-transformer'; // see Module Formats below
 new SelectTransformer(document.querySelector('select#my-select'));
 ```
@@ -21,7 +21,7 @@ There is some very basic styling in `dist/assets/default.css` that you can use a
 
 ### jQuery
 
-```
+```javascript
 $('select#my-select').selectTransformer();
 ```
 
