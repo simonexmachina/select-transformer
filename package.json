@@ -10,6 +10,10 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/aexmachina/select-transformer",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/aexmachina/select-transformer.git"
+  },
   "main": "dist/cjs/main.js",
   "scripts": {
     "test": "rm -rf dist && broccoli build dist && karma start --browsers PhantomJS --single-run",

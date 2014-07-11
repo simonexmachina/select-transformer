@@ -34,3 +34,7 @@ SelectTransformer uses a minimal set of jQuery fuctions, which could easily be p
 ### Module Formats
 
 You will find all the popular formats in `dist/`.
+
+### Ember.js
+
+Use the handy ember-cli addon called [ember-select-transformer](https://github.com/aexmachina/ember-select-transformer).
