@@ -4,16 +4,14 @@
 var dom = jQuery;
 
 var SelectTransformer = function(select, opts) {
+  // handle being passed a jQuery object
+  if (!(select instanceof Element)) select = select[0];
   this.select = select;
   dom(this.select).data('SelectTransformer', this);
 
-  this.options = {
-    type: this.select.multiple ? 'checkbox' : 'radio'
-  };
+  this.inputType = this.select.multiple ? 'checkbox' : 'radio';
   for (var i in opts || {}) {
-    if (opts.hasOwnProperty(i)) {
-      this.options[i] = opts[i];
-    }
+    if (opts.hasOwnProperty(i)) this.options[i] = opts[i];
   }
 
   this.build();
@@ -45,9 +43,7 @@ SelectTransformer.prototype.inputChanged = function(ev) {
   var input = ev.target,
       options = this.select.options, i;
   for (i = 0; i < options.length; i++) {
-    if (options[i].value == input.value) {
-      options[i].selected = input.checked;
-    }
+    if (options[i].value == input.value) options[i].selected = input.checked;
   }
   dom(this.select).trigger('change');
 };
@@ -67,6 +63,7 @@ var STOptionSet = function(transformer) {
 STOptionSet.prototype.update = function(parent) {
   var newInputs = [],
       newGroups = [];
+  // construct a set of Inputs and OptGroups for the select
   dom(parent.children)
     .filter('option, optgroup')
     .each(function(i, el) {
@@ -154,7 +151,7 @@ var STInput = function(optionEl, transformer) {
 
   input = document.createElement('input');
   input.name = transformer.select.name;
-  input.type = transformer.options.type;
+  input.type = transformer.inputType;
 
   label = document.createElement('span');
 
