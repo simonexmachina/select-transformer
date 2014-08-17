@@ -1,0 +1,14 @@
+{
+  "framework": "mocha+chai",
+  "launch_in_dev": ["PhantomJS"],
+  "phantomjs_debug_port": 9004,
+  "src_files": [
+    "test/**/*.js"
+  ],
+  "serve_files": [
+    "bower_components/jquery/dist/jquery.js",
+    "bower_components/bind-polyfill/index.js",
+    "dist/globals/*.js",
+    "test/**/*.js"
+  ]
+}
