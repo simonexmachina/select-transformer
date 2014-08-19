@@ -16,7 +16,7 @@
   },
   "main": "dist/cjs/main.js",
   "scripts": {
-    "test": "npm run build && testem ci",
+    "test": "npm run build && bower install && testem ci",
     "build": "rm -rf dist && broccoli build dist"
   },
   "files": [
