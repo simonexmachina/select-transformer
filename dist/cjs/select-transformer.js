@@ -22,6 +22,10 @@ var SelectTransformer = function(select, opts) {
 
   this.select.style.display = 'none';
   this.insert();
+
+  if (dom(this.select).closest('label').length) {
+    console.warn('Having a <label> inside a <label> can cause strange results in Firefox', this.select);
+  }
 };
 
 SelectTransformer.prototype.build = function() {

@@ -17,7 +17,8 @@
   "main": "dist/cjs/main.js",
   "scripts": {
     "test": "npm run build && bower install && testem ci --launch PhantomJS",
-    "build": "rm -rf dist && broccoli build dist"
+    "build": "rm -rf dist && broccoli build dist",
+    "prepublish": "npm run build"
   },
   "files": [
     "assets",
